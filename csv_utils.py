@@ -1,7 +1,7 @@
 import pandas as pd
 import math
 
-def get_regional_rate(regione, taxable_income, csv_path="data/addizionale_regionale_2025.csv"):
+def get_regional_rate(regione, taxable_income, csv_path="data/addreg2026.csv"):
     """
     Restituisce l'aliquota addizionale regionale per una regione e un reddito imponibile.
     
@@ -15,9 +15,11 @@ def get_regional_rate(regione, taxable_income, csv_path="data/addizionale_region
     """
     # Leggi CSV
     df = pd.read_csv(csv_path, sep=';')
+    df.columns = df.columns.str.strip()
     
     # Filtra solo la regione
-    df_region = df[df['REGIONE'].str.strip().str.lower() == regione.strip().lower()]
+    df_region = df[df['REGIONE'].str.strip().str.lower() == "regione "+regione.strip().lower()]
+    print("regione "+regione.strip().lower())
     
     if df_region.empty:
         raise ValueError(f"Regione '{regione}' non trovata nel CSV")
@@ -30,7 +32,7 @@ def get_regional_rate(regione, taxable_income, csv_path="data/addizionale_region
     # Altrimenti, più fasce → trovare quella giusta
     for _, row in df_region.iterrows():
         fascia = row['FASCIA'].strip().lower()
-        aliquota = float(row['ALIQUOTA'].replace(',', '.')) / 100
+        aliquota = row['ALIQUOTA']/ 100
         
         if "fino a" in fascia and "oltre" not in fascia:
             # es. "fino a 15000.00 euro"
@@ -54,3 +56,13 @@ def get_regional_rate(regione, taxable_income, csv_path="data/addizionale_region
     
     # Se non trova fascia → errore
     raise ValueError(f"Nessuna fascia corrispondente trovata per {regione} con reddito {taxable_income}")
+
+if __name__ == "__main__":
+    # Test rapido
+    try:
+        print(get_regional_rate("Lombardia", 20000))  # Dovrebbe restituire aliquota per fascia 15000-28000
+        print(get_regional_rate("Lombardia", 10000))  # Dovrebbe restituire aliquota per fascia fino a 15000
+        print(get_regional_rate("Lombardia", 30000))  # Dovrebbe restituire aliquota per fascia oltre 28000 e fino a 50000
+        print(get_regional_rate("Lombardia", 60000))  # Dovrebbe restituire aliquota per fascia oltre 50000
+    except ValueError as e:
+        print(e)
