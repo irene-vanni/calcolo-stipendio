@@ -26,7 +26,7 @@ def get_regional_rate(regione, taxable_income, csv_path="data/addreg2026.csv"):
     
     # Se c'è solo una riga o FASCIA = "Aliquota Unica"
     if len(df_region) == 1 or df_region.iloc[0]['FASCIA'].strip().lower() == "aliquota unica":
-        aliquota = float(df_region.iloc[0]['ALIQUOTA'].replace(',', '.')) / 100
+        aliquota = df_region.iloc[0]['ALIQUOTA'] / 100
         return aliquota
     
     # Altrimenti, più fasce → trovare quella giusta

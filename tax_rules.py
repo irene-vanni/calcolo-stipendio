@@ -1,5 +1,7 @@
 # tax_rules.py
 
+from csv_utils import get_regional_rate
+
 # IRPEF semplificata per 2026
 IRPEF_BRACKETS = [
     (28000, 0.23),
@@ -37,19 +39,21 @@ def calculate_detrazioni(gross_salary):
     else:
         return 0
 
-def calculate_net_salary(gross_salary):
+def calculate_net_salary(gross_salary, region):
     inps = gross_salary * INPS_RATE
     taxable_income = gross_salary - inps
     irpef = calculate_irpef(taxable_income)
     detrazioni = calculate_detrazioni(gross_salary)
+    add_regionale = get_regional_rate(region, taxable_income) * taxable_income  
 
-    net = gross_salary - inps - irpef + detrazioni
+    net = gross_salary - inps - irpef + detrazioni - add_regionale
 
     return {
         "gross": gross_salary,
         "inps": inps,
         "irpef": irpef,
         "detrazioni": detrazioni,
+        "addizionale_regionale": add_regionale,
         "net": net
     }
     
