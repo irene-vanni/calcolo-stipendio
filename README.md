@@ -41,6 +41,7 @@ It provides a breakdown of:
 ---
 
 ## 🏗️ Project Structure
+```
 .
 ├── app.py                  # Streamlit UI
 ├── tax_rules.py            # Core tax computation logic
@@ -48,6 +49,7 @@ It provides a breakdown of:
 ├── data/
 │   └── addreg2026.csv      # Regional tax rates dataset
 └── README.md
+```
 
 ---
 
@@ -57,6 +59,7 @@ It provides a breakdown of:
 git clone https://github.com/irene-vanni/stipendio-netto
 cd net-salary-calculator
 pip install streamlit pandas
+```
 
 ---
 
@@ -64,6 +67,35 @@ pip install streamlit pandas
 
 ```bash
 streamlit run app.py
-
+```
 Then open:
 http://localhost:8501
+
+---
+
+## 🧮 Computation Model
+
+### INPS Contributions
+
+9.19% of gross salary
+
+### Taxable Income 
+
+taxable_income = gross_salary - inps
+
+### IRPEF 
+
+23% → up to €28,000
+33% → €28,000 – €50,000
+43% → above €50,000
+
+### Net salary
+
+net = gross - inps - irpef + deductions - regional_tax
+
+### ⚠️ Limitations
+
+Simplified IRPEF model
+Approximate deductions
+No municipal tax
+No family-dependent benefits
