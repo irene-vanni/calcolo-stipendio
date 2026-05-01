@@ -57,7 +57,7 @@ It provides a breakdown of:
 
 ```bash
 git clone https://github.com/irene-vanni/stipendio-netto
-cd net-salary-calculator
+cd stipendio-netto
 pip install streamlit pandas
 ```
 
@@ -95,7 +95,7 @@ net = gross - inps - irpef + deductions - regional_tax
 
 ### ⚠️ Limitations
 
-Simplified IRPEF model
-Approximate deductions
-No municipal tax
-No family-dependent benefits
+- Simplified IRPEF model
+- Approximate deductions
+- No municipal tax
+- No family-dependent benefits
