@@ -56,8 +56,8 @@ It provides a breakdown of:
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/irene-vanni/stipendio-netto
-cd stipendio-netto
+git clone https://github.com/irene-vanni/calcolo-stipendio
+cd calcolo-stipendio
 pip install streamlit pandas
 ```
 
