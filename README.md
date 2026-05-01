@@ -85,9 +85,9 @@ taxable_income = gross_salary - inps
 
 ### IRPEF 
 
-23% → up to €28,000
-33% → €28,000 – €50,000
-43% → above €50,000
+23% → up to €28,000  
+33% → €28,000 – €50,000  
+43% → above €50,000  
 
 ### Net salary
 
